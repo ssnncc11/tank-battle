@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1117">
+  <meta name="description" content="钢铁防线 TANK BATTLE —— 一款纯 HTML5 Canvas 打造的复古坦克防守游戏。守住基地，击退三波钢铁洪流。">
+  <title>钢铁防线 · TANK BATTLE</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="钢铁防线首页">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="brand-copy">
+          <strong>钢铁防线</strong>
+          <small>TANK BATTLE</small>
+        </span>
+      </a>
+      <div class="topbar-right">
+        <span class="build-tag">HTML5 · CANVAS</span>
+        <button class="icon-button" id="soundToggle" type="button" aria-label="切换声音" title="切换声音 (M)">
+          <svg class="sound-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9v6h4l5 4V5L8 9H4Zm12.5-2.1a7 7 0 0 1 0 10.2M19 4.2a11.5 11.5 0 0 1 0 15.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9v6h4l5 4V5L8 9H4Zm12 1 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="game-wrap">
+      <div class="game-frame" id="gameFrame">
+        <section class="stage" id="stage" aria-label="钢铁防线游戏区域">
+          <canvas id="game" width="1280" height="720" aria-label="坦克大战游戏画面">
+            你的浏览器不支持 Canvas，请使用较新的浏览器打开。
+          </canvas>
+
+          <div class="hud" aria-hidden="true">
+            <div class="hud-card score-card">
+              <span class="hud-label">SCORE</span>
+              <strong class="hud-value" id="scoreValue">000000</strong>
+              <span class="hud-sub">BEST <b id="bestValue">000000</b></span>
+            </div>
+
+            <div class="stage-badge">
+              <span>STAGE</span>
+              <strong id="stageValue">01</strong>
+              <em id="stageName">荒原哨站</em>
+            </div>
+
+            <div class="hud-right">
+              <div class="hud-card mini">
+                <span class="hud-label">敌军</span>
+                <strong class="hud-value" id="enemyValue">08</strong>
+              </div>
+              <div class="hud-card mini">
+                <span class="hud-label">装甲</span>
+                <strong class="hud-value armor" id="lifeValue">03</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="buffs" id="buffs" aria-live="polite"></div>
+          <div class="toast" id="toast" aria-live="polite">
+            <span id="toastKicker">SECTOR 01</span>
+            <strong id="toastTitle">荒原哨站</strong>
+          </div>
+
+          <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="游戏菜单"></div>
+
+          <div class="touch-controls">
+            <div class="dpad">
+              <button class="touch-btn dpad-up" data-control="up" type="button" aria-label="向上">▲</button>
+              <button class="touch-btn dpad-left" data-control="left" type="button" aria-label="向左">◀</button>
+              <span class="dpad-core"></span>
+              <button class="touch-btn dpad-right" data-control="right" type="button" aria-label="向右">▶</button>
+              <button class="touch-btn dpad-down" data-control="down" type="button" aria-label="向下">▼</button>
+            </div>
+            <button class="touch-btn fire-btn" data-control="fire" type="button" aria-label="开火">
+              <span>FIRE</span>
+            </button>
+          </div>
+
+          <div class="screen-effects" aria-hidden="true"></div>
+          <div class="corner corner-tl" aria-hidden="true"></div>
+          <div class="corner corner-tr" aria-hidden="true"></div>
+          <div class="corner corner-bl" aria-hidden="true"></div>
+          <div class="corner corner-br" aria-hidden="true"></div>
+        </section>
+      </div>
+
+      <div class="control-bar">
+        <div class="control-keys">
+          <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> 移动</span>
+          <span><kbd>SPACE</kbd> / <kbd>J</kbd> 开火</span>
+          <span><kbd>P</kbd> 暂停</span>
+          <span><kbd>M</kbd> 静音</span>
+        </div>
+        <div class="status-pill" id="statusPill"><i></i><span id="statusText">待命</span></div>
+      </div>
+    </main>
+  </div>
+
+  <div class="orientation-hint">
+    <span class="rotate-phone"></span>
+    <strong>请横屏游玩</strong>
+    <p>旋转设备，展开完整战场视野</p>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
